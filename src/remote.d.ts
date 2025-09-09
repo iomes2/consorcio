@@ -1,0 +1,11 @@
+declare module "authApp/Auth";
+declare module "authApp/Login";
+declare module "authApp/Register";
+declare module "consorcioApp/Consorcio";
+declare module "consorcioApp/ConsorcioList";
+declare module "consorcioApp/ConsorcioCreate";
+declare module "consorcioApp/ConsorcioEdit";
+declare module "cotasApp/Cotas";
+declare module "cotasApp/CotaList";
+declare module "cotasApp/CotaCreate";
+declare module "cotasApp/CotaEdit";
