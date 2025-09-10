@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate("/");
   };
 
   // Lógica de filtro

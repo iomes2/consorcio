@@ -45,4 +45,10 @@ module.exports = {
       return webpackConfig;
     },
   },
+  // Adicionar configuração para PostCSS
+  style: {
+    postcss: {
+      plugins: [require("@tailwindcss/postcss"), require("autoprefixer")], // Adicione @tailwindcss/postcss e autoprefixer
+    },
+  },
 };
