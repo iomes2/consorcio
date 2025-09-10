@@ -1,50 +1,35 @@
-import React, { Suspense, useEffect } from "react";
+import React from "react";
 import "./Inicio.css";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setCredentials, logout } from "../../features/auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
+import { logout } from "../../features/auth/authSlice";
 
 const Inicio = () => {
   const dispatch = useDispatch();
   const { user, token } = useSelector((state: RootState) => state.auth);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("jwt_token");
-    if (storedToken) {
-      const mockUser = {
-        id: 0,
-        nome: "Usuário Logado",
-        email: "logged@example.com",
-      }; // Substituir com dados reais
-      dispatch(setCredentials({ token: storedToken, user: mockUser }));
-    }
-  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
   return (
-    <main className="main">
-      <div className="background">
-        <h1>O consórcio perfeito para você</h1>
-        {/* <img src="/topaz_bg.jpg" alt="bg" className="bg-main"/> */}
-      </div>
-      <div>
+    <div className="inicio-container">
+      <header className="inicio-header">
+        <div className="logo">
+          <Link to="/">Consórcio-X</Link>
+        </div>
         <nav>
           {!token ? (
             <>
-              <Link to="/login" style={{ marginRight: "10px"}}>
+              <Link to="/login" style={{ marginRight: "10px" }}>
                 Login
               </Link>
-              <Link to="/register">
-                Register
-              </Link>
+              <Link to="/register">Register</Link>
             </>
           ) : (
             <>
-              <span style={{ marginRight: "10px"}}>
+              <span style={{ marginRight: "10px" }}>
                 Olá, {user?.nome || "Usuário"}!
               </span>
               <button
@@ -99,8 +84,20 @@ const Inicio = () => {
             </>
           )}
         </nav>
-      </div>
-    </main>
+      </header>
+      <main className="main-content">
+        <div className="hero-section">
+          <h1>Encontre o consórcio dos seus sonhos</h1>
+          <p>A maneira mais inteligente de conquistar seus bens.</p>
+          <Link to="/login" className="cta-button">
+            Ver Planos
+          </Link>
+        </div>
+      </main>
+      <footer className="inicio-footer">
+        <p>&copy; 2024 Consórcio-X. Todos os direitos reservados.</p>
+      </footer>
+    </div>
   );
 };
 
