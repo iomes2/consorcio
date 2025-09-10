@@ -14,10 +14,25 @@ interface AuthState {
   error: string | null;
 }
 
+// Helper para pegar o usuário do localStorage de forma segura
+const getUserFromStorage = (): User | null => {
+  const userString = localStorage.getItem('user');
+  if (userString) {
+    try {
+      return JSON.parse(userString);
+    } catch (e) {
+      console.error("Falha ao analisar o usuário do localStorage", e);
+      localStorage.removeItem('user'); // Limpa o dado corrompido
+      return null;
+    }
+  }
+  return null;
+};
+
 // Estado inicial
 const initialState: AuthState = {
   token: localStorage.getItem('jwt_token'),
-  user: null, // O usuário pode ser buscado depois ou vir junto com o login
+  user: getUserFromStorage(), // Pega o usuário do localStorage
   loading: false,
   error: null,
 };
@@ -48,6 +63,7 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       localStorage.removeItem('jwt_token');
+      localStorage.removeItem('user'); // Remove o usuário do storage
     },
   },
   extraReducers: (builder) => {
@@ -61,6 +77,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.user = action.payload.user;
         localStorage.setItem('jwt_token', action.payload.token);
+        localStorage.setItem('user', JSON.stringify(action.payload.user)); // Salva o usuário no storage
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
