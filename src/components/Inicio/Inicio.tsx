@@ -1,5 +1,4 @@
 import React from "react";
-import "./Inicio.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
@@ -14,87 +13,66 @@ const Inicio = () => {
   };
 
   return (
-    <div className="inicio-container">
-      <header className="inicio-header">
+    <div className="flex flex-col min-h-screen bg-gray-100 text-gray-800">
+      <header className="bg-gray-800 shadow-md py-4 px-16 flex justify-between items-center text-white">
         <div className="logo">
-          <Link to="/">Consórcio-X</Link>
+          <Link to="/" className="text-2xl font-bold">
+            Consórcio-X
+          </Link>
         </div>
-        <nav>
+        <nav className="flex items-center space-x-6">
           {!token ? (
             <>
-              <Link to="/login" style={{ marginRight: "10px" }}>
+              <Link to="/login" className="hover:text-blue-300">
                 Login
               </Link>
-              <Link to="/register">Register</Link>
+              <Link
+                to="/register"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Register
+              </Link>
             </>
           ) : (
             <>
-              <span style={{ marginRight: "10px" }}>
-                Olá, {user?.nome || "Usuário"}!
-              </span>
+              <span>Olá, {user?.nome || "Usuário"}!</span>
+              <Link to="/dashboard" className="hover:text-blue-300">
+                Dashboard
+              </Link>
               <button
                 onClick={handleLogout}
-                style={{
-                  color: "white",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                }}
+                className="bg-transparent border-none cursor-pointer text-white hover:underline"
               >
                 Logout
               </button>
-              <Link
-                to="/consorcios"
-                style={{
-                  marginLeft: "20px",
-                  marginRight: "10px",
-                  color: "white",
-                }}
-              >
-                Listar Consórcios
-              </Link>
-              <Link
-                to="/consorcios/create"
-                style={{ marginRight: "10px", color: "white" }}
-              >
-                Criar Consórcio
-              </Link>
-              <Link to="/consorcios/edit/1" style={{ color: "white" }}>
-                Editar Consórcio (ID 1)
-              </Link>
-              <Link
-                to="/cotas"
-                style={{
-                  marginLeft: "20px",
-                  marginRight: "10px",
-                  color: "white",
-                }}
-              >
-                Listar Cotas
-              </Link>
-              <Link
-                to="/cotas/create"
-                style={{ marginRight: "10px", color: "white" }}
-              >
-                Criar Cota
-              </Link>
-              <Link to="/cotas/edit/1" style={{ color: "white" }}>
-                Editar Cota (ID 1)
-              </Link>
             </>
           )}
         </nav>
       </header>
-      <main className="main-content">
-        <div className="hero-section">
-          <h1>Encontre o consórcio dos seus sonhos</h1>
-          <p>A maneira mais inteligente de conquistar seus bens.</p>
-          <Link to="/login" className="cta-button">
+      <main
+        className="flex-grow flex justify-center items-center text-center text-white"
+        style={{
+          backgroundImage: "url('/topaz_bg.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="bg-black bg-opacity-50 py-16 px-8 rounded-lg">
+          <h1 className="text-5xl font-bold mb-4">
+            Encontre o consórcio dos seus sonhos
+          </h1>
+          <p className="text-xl mb-8">
+            A maneira mais inteligente de conquistar seus bens.
+          </p>
+          <Link
+            to="/login"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-md text-lg transition-colors duration-300"
+          >
             Ver Planos
           </Link>
         </div>
       </main>
-      <footer className="inicio-footer">
+      <footer className="bg-gray-800 text-white text-center p-4">
         <p>&copy; 2024 Consórcio-X. Todos os direitos reservados.</p>
       </footer>
     </div>
